@@ -27,21 +27,21 @@ public class DoorOpenDevice : MonoBehaviour
             bool isPlaced = Vector3.Distance(_startLeft + dPos, doorLeft.transform.position) <= 0.01f;
             if (!isPlaced)
             {
-                Vector3 posLeft = doorLeft.transform.position + new Vector3(_speed, 0, 0);
-                Vector3 posRight = doorRight.transform.position - new Vector3(_speed, 0, 0);
+                Vector3 posLeft = doorLeft.transform.position + dPos * _speed; 
+                Vector3 posRight = doorRight.transform.position - dPos * _speed;
                 doorLeft.transform.position = posLeft;
-                doorRight.transform.position = posRight;
+                doorRight.transform.position = posRight;  
             }
         }
         else 
         {
             bool isPlaced = Vector3.Distance(_startLeft - dPos, doorLeft.transform.position) <= 0.01f;
             if (!isPlaced)
-            {
-                Vector3 posLeft = doorLeft.transform.position - new Vector3(_speed, 0, 0);
-                Vector3 posRight = doorRight.transform.position + new Vector3(_speed, 0, 0);
+            { 
+                Vector3 posLeft = doorLeft.transform.position - dPos * _speed; 
+                Vector3 posRight = doorRight.transform.position + dPos * _speed;
                 doorLeft.transform.position = posLeft;
-                doorRight.transform.position = posRight;
+                doorRight.transform.position = posRight;    
             }
         }
     }
