@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [AddComponentMenu("Control Script/FPS Input")]
-public class FPSInput : MonoBehaviour
+public class KeiboardMovement : MonoBehaviour
 {
     public float speed = 6.0f;
     public float gravity = -9.8f;
