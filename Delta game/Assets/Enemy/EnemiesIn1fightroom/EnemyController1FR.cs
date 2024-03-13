@@ -8,21 +8,29 @@ public class EnemyController1FR : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     private GameObject[] _enemies;
     private int _len = 5;
+    public bool isFinished;
 
     private void Start()
     {
         _enemies = new GameObject[_len];
-        //if player is close
-        for (int i = 0; i < 5; i++)
-        {
-            _enemies[i] = Instantiate(enemyPrefab);
-            _enemies[i].transform.position = new Vector3(10+i*3, 0.4f, -73);
-            _enemies[i].transform.Rotate(0,180,0);
-        }
     }
 
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_enemies[0] == null && !isFinished)
+        {
+            Debug.Log("Trigger");
+            for (int i = 0; i < 5; i++)
+            {
+                _enemies[i] = Instantiate(enemyPrefab, new Vector3(10 + i * 3, 0.4f, -73), Quaternion.identity);
+                _enemies[i].transform.Rotate(0, 180, 0);
+            }
+            isFinished = true;
+        }
     }
 }

@@ -39,7 +39,7 @@ public class Moveandattack : MonoBehaviour
             Ray ray = new Ray(transform.position +
                               new Vector3(0, 1.5f, 0), transform.forward);
             RaycastHit hit;
-            if (Physics.SphereCast(ray, 1f, out hit))
+            if (Physics.SphereCast(ray, 0.25f, out hit))
             {
                 GameObject hitObject = hit.transform.gameObject;
                 if (hitObject.CompareTag("Player") && _lifeTimeCounter > lifeTime)

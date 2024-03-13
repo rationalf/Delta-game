@@ -32,7 +32,7 @@ public class enemyBullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<EnemyScript>().TakeDamage(_damageAmount);
+            other.GetComponent<PlayerStatistics>().TakeDamage(_damageAmount);
         }
     }
 }

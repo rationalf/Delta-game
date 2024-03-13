@@ -34,4 +34,5 @@ public class EnemyScript : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);
     }
+    
 }

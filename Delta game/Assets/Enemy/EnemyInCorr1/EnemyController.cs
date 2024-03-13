@@ -7,15 +7,15 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
     private GameObject _enemy;
-    
+    private bool isFinished;
     
     private void OnTriggerEnter(Collider other)
     {
-        if (_enemy == null)
+        if (_enemy == null && !isFinished)
         {
             Debug.Log("Trigger");
             _enemy = Instantiate(enemyPrefab, new Vector3(0, 0.5f, -25), Quaternion.identity);
-            //_enemy.transform.position = new Vector3(0, 0.5f, -25);
+            isFinished = true;
         }
     }
 }

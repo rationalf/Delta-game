@@ -14,6 +14,7 @@ public class DoorOpenDevice : MonoBehaviour
     private bool open;
     private bool _operate;
     private bool _isPlaced = true;
+    
     private void Start()
     {
         _startLeft = doorLeft.transform.position;
