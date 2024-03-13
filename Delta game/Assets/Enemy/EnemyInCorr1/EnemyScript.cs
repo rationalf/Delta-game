@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ public class EnemyScript : MonoBehaviour
         anim.SetTrigger("death");
         GetComponent<Collider>().enabled = false;
         healthBar.gameObject.SetActive(false);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

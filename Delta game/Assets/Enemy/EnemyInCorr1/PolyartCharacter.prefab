@@ -3033,7 +3033,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3829918381392166264}
@@ -3139,6 +3139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 7787775651544843928}
+  radius: 2
+  shootingPrefab: {fileID: 2390579970683610553, guid: 24b4872a11ec2364d9a4e2bc12fa6f80, type: 3}
 --- !u!1 &9152117912130414875
 GameObject:
   m_ObjectHideFlags: 0
