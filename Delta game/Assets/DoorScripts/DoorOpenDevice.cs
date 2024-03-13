@@ -13,19 +13,15 @@ public class DoorOpenDevice : MonoBehaviour
     private Vector3 _startRight;
     private bool open;
     private bool _operate;
-    private void Start()
-    {
-        _startLeft = doorLeft.transform.position;
-        _startRight = doorRight.transform.position;
-    }
+    private bool _isPlaced = true;
 
     private void Update()
     {
         if (!_operate) return;
         if (open)
         {
-            bool isPlaced = Vector3.Distance(_startLeft + dPos, doorLeft.transform.position) <= 0.01f;
-            if (!isPlaced)
+            _isPlaced = Vector3.Distance(_startLeft + dPos, doorLeft.transform.position) <= 0.01f;
+            if (!_isPlaced)
             {
                 Vector3 posLeft = doorLeft.transform.position + dPos * _speed; 
                 Vector3 posRight = doorRight.transform.position - dPos * _speed;
@@ -33,10 +29,10 @@ public class DoorOpenDevice : MonoBehaviour
                 doorRight.transform.position = posRight;  
             }
         }
-        else 
+        else
         {
-            bool isPlaced = Vector3.Distance(_startLeft - dPos, doorLeft.transform.position) <= 0.01f;
-            if (!isPlaced)
+            _isPlaced = Vector3.Distance(_startLeft - dPos, doorLeft.transform.position) <= 0.01f;
+            if (!_isPlaced)
             { 
                 Vector3 posLeft = doorLeft.transform.position - dPos * _speed; 
                 Vector3 posRight = doorRight.transform.position + dPos * _speed;
@@ -48,9 +44,12 @@ public class DoorOpenDevice : MonoBehaviour
 
     public void Operate()
     {
-        _startLeft = doorLeft.transform.position;
-        _startRight = doorRight.transform.position;
-        open = !open;
-        _operate = true;
+        if (_isPlaced)
+        {
+            _startLeft = doorLeft.transform.position;
+            _startRight = doorRight.transform.position;
+            open = !open;
+            _operate = true;
+        }
     }
 }
