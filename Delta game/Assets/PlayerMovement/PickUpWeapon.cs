@@ -30,6 +30,16 @@ public class PickUpWeapon : MonoBehaviour
         {
             anim.SetBool("attack", false);
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && currentWeapon != null && currentWeapon.CompareTag("Weapon")) 
+        {
+            currentWeapon.GetComponent<Collider>().isTrigger = true;
+            anim.SetBool("block", true);
+
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1) && currentWeapon != null) 
+        {
+            anim.SetBool("block", false);
+        }
     }
 
     void PickUp()
