@@ -7,6 +7,7 @@ public class Moveandattack : MonoBehaviour
 {
     GameObject player;
     NavMeshAgent agent;
+    public Animator anim;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -16,6 +17,8 @@ public class Moveandattack : MonoBehaviour
     
     void Update()
     {
+        
+        anim.SetTrigger("walk");
         agent.SetDestination(player.transform.position);
     }
 }
