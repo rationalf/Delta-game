@@ -20,7 +20,7 @@ public class PickUpWeapon : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) PickUp();
         if (Input.GetKeyDown(KeyCode.Q)) Drop();
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon != null) 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon != null && currentWeapon.CompareTag("Weapon")) 
         {
             currentWeapon.GetComponent<Collider>().isTrigger = true;
             anim.SetBool("attack", true);
@@ -47,6 +47,18 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.parent = transform;
                 currentWeapon.transform.localPosition = Vector3.zero;
                 currentWeapon.transform.localEulerAngles = new Vector3(140f, 0, -30f);
+                canPickUp = true;
+            }
+            if (hit.transform.tag == "Weapon_Pistol")
+            {
+                if (canPickUp) Drop();
+
+                currentWeapon = hit.transform.gameObject;
+                currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
+                currentWeapon.GetComponent<Collider>().isTrigger = true;
+                currentWeapon.transform.parent = transform;
+                currentWeapon.transform.localPosition = new Vector3(0.0262f, -0.0369f, 0.0316f);
+                currentWeapon.transform.localEulerAngles = new Vector3(16.94f, 116.384f, 127.48f);
                 canPickUp = true;
             }
         }
