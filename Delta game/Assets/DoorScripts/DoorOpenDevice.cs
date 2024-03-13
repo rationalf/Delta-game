@@ -13,6 +13,7 @@ public class DoorOpenDevice : MonoBehaviour
     private Vector3 _startRight;
     private bool open;
     private bool _operate;
+    private bool _isPlaced = true;
     private void Start()
     {
         _startLeft = doorLeft.transform.position;
@@ -24,8 +25,8 @@ public class DoorOpenDevice : MonoBehaviour
         if (!_operate) return;
         if (open)
         {
-            bool isPlaced = Vector3.Distance(_startLeft + dPos, doorLeft.transform.position) <= 0.01f;
-            if (!isPlaced)
+            _isPlaced = Vector3.Distance(_startLeft + dPos, doorLeft.transform.position) <= 0.01f;
+            if (!_isPlaced)
             {
                 Vector3 posLeft = doorLeft.transform.position + dPos * _speed; 
                 Vector3 posRight = doorRight.transform.position - dPos * _speed;
@@ -35,8 +36,8 @@ public class DoorOpenDevice : MonoBehaviour
         }
         else 
         {
-            bool isPlaced = Vector3.Distance(_startLeft - dPos, doorLeft.transform.position) <= 0.01f;
-            if (!isPlaced)
+            _isPlaced = Vector3.Distance(_startLeft - dPos, doorLeft.transform.position) <= 0.01f;
+            if (!_isPlaced)
             { 
                 Vector3 posLeft = doorLeft.transform.position - dPos * _speed; 
                 Vector3 posRight = doorRight.transform.position + dPos * _speed;
@@ -48,6 +49,7 @@ public class DoorOpenDevice : MonoBehaviour
 
     public void Operate()
     {
+        if (!_isPlaced) return;
         _startLeft = doorLeft.transform.position;
         _startRight = doorRight.transform.position;
         open = !open;
