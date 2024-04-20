@@ -1,30 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    private int health = 100;
-    // Start is called before the first frame update
+    public float health;
+    public float maxHealth;
+    
+    public Slider slider;
+
     void Start()
     {
-        
+        health = maxHealth;
+        slider.value = CalculateHealth();
     }
-
-    // Update is called once per frame
     void Update()
     {
+        slider.value = CalculateHealth();
         if (health <= 0)
         {
             Debug.Log("Death");
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene(1);
+        }
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
         }
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log(health);
+    }
+
+    float CalculateHealth()
+    {
+        return health / maxHealth;
     }
 }
