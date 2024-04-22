@@ -461,6 +461,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
 "Assets/UI/Menu/MenuScripts/StartScript.cs"
 "Assets/UI/Shop/Shop.cs"
+"Assets/UI/Shop/ShopOpenner.cs"
 -langversion:9.0
 
 /deterministic
