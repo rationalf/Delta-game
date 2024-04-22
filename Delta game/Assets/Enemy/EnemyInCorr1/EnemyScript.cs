@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour
     private int _health = 100;
     public Animator anim;
     public Slider healthBar;
+    
 
     // Update is called once per frame
     void Update()
@@ -29,6 +30,13 @@ public class EnemyScript : MonoBehaviour
     private IEnumerator Die()
     {
         anim.SetTrigger("death");
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            Vector3 hitPosition = hitCollider.transform.position;
+            hitPosition.y = transform.position.y;
+            hitCollider.SendMessage("CreditsIncrement", SendMessageOptions.DontRequireReceiver);
+        }
         GetComponent<Collider>().enabled = false;
         healthBar.gameObject.SetActive(false);
         yield return new WaitForSeconds(1);

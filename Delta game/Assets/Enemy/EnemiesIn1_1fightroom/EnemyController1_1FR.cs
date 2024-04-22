@@ -24,7 +24,6 @@ public class EnemyController1_1FR : MonoBehaviour
     {
         if (_enemies[0] == null && !isFinished)
         {
-            Debug.Log("Trigger");
             for (int i = 0; i < 5; i++)
             {
                 _enemies[i] = Instantiate(enemyPrefab, new Vector3(60, 0.4f, -15 + i * 3), Quaternion.identity);

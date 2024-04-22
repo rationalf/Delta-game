@@ -371,7 +371,7 @@
 "Assets/Enemy/EnemyInCorr1/CanvasLook.cs"
 "Assets/Enemy/EnemyInCorr1/EnemyController.cs"
 "Assets/Enemy/EnemyInCorr1/EnemyScript.cs"
-"Assets/Enemy/EnemyInCorr1/MoveAndAttack.cs"
+"Assets/Enemy/MoveAndAttack.cs"
 "Assets/import/Dzyubans_scrips/horizontalAimScript.cs"
 "Assets/import/Dzyubans_scrips/PlayerMovement.cs"
 "Assets/import/Dzyubans_scrips/verticalAimScript.cs"
