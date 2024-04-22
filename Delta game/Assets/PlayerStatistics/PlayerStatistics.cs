@@ -15,6 +15,7 @@ public class PlayerStatistics : MonoBehaviour
     
     private float credits;
     public TMP_Text creditsLabel;
+    public PickUpWeapon weapons;
 
     void Start()
     {
@@ -41,7 +42,14 @@ public class PlayerStatistics : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        if ((Input.GetMouseButton(1) && weapons.currentWeapon.CompareTag("Weapon")))
+        {
+            health -= (float) damage / 10;
+        }
+        else
+        {
+            health -= damage;
+        }
     }
 
     private float CalculateHealth()

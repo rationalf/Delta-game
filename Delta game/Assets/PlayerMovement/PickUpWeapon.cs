@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PickUpWeapon : MonoBehaviour
 {
     public GameObject Camera;
-    public float distance = 3;
+    public float distance = 5;
     public GameObject currentWeapon = null;
     public bool canPickUp = false;
     public Animator anim;
