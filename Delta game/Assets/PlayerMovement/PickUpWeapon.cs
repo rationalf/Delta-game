@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +13,8 @@ public class PickUpWeapon : MonoBehaviour
     public GameObject currentWeapon = null;
     public bool canPickUp = false;
     public Animator anim;
-
+    public Queue<GameObject> inventory = new Queue<GameObject>();
+    public HashSet<String> setWeapons = new HashSet<string>();
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -19,7 +22,13 @@ public class PickUpWeapon : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) PickUp();
-        if (Input.GetKeyDown(KeyCode.Q)) Drop();
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        {
+            Drop();
+            currentWeapon = inventory.Dequeue();
+            currentWeapon.SetActive(true);
+            inventory.Enqueue(currentWeapon);
+        }
         if (Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon != null && currentWeapon.CompareTag("Weapon")) 
         {
             currentWeapon.GetComponent<Collider>().isTrigger = true;
@@ -58,6 +67,11 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.localPosition = Vector3.zero;
                 currentWeapon.transform.localEulerAngles = new Vector3(140f, 0, -30f);
                 canPickUp = true;
+                if (!setWeapons.Contains("Weapon"))
+                {
+                    inventory.Enqueue(currentWeapon);
+                    setWeapons.Add("Weapon");
+                }
             }
             if (hit.transform.tag == "Weapon_Pistol")
             {
@@ -70,6 +84,11 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.localPosition = new Vector3(0.0262f, -0.0369f, 0.0316f);
                 currentWeapon.transform.localEulerAngles = new Vector3(16.94f, 116.384f, 127.48f);
                 canPickUp = true;
+                if (!setWeapons.Contains("Weapon_Pistol"))
+                {
+                    inventory.Enqueue(currentWeapon);
+                    setWeapons.Add("Weapon_Pistol");
+                }
             }
         }
 
@@ -78,11 +97,8 @@ public class PickUpWeapon : MonoBehaviour
 
     void Drop()
     {
-        currentWeapon.transform.parent = null;
-        currentWeapon.GetComponent<Rigidbody>().isKinematic = false;
-        currentWeapon.GetComponent<Collider>().isTrigger = false;
-        currentWeapon.GetComponent<Rigidbody>().useGravity = true;
         canPickUp = false;
+        currentWeapon.SetActive(false);
         currentWeapon = null;
     }
 }
