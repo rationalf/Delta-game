@@ -96,9 +96,24 @@ public class PickUpWeapon : MonoBehaviour
                     PlayerPrefs.SetInt("Weapon_Pistol", 1);
 
                 }
-        }
+            }
+            if (hit.tag == "Weapon_Railgun")
+            {
+                if (canPickUp) Drop();
 
-
+                currentWeapon = hit.transform.gameObject;
+                currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
+                currentWeapon.GetComponent<Collider>().isTrigger = true;
+                currentWeapon.transform.parent = transform;
+                currentWeapon.transform.localPosition = new Vector3(0.0982f, -0.104f, 0.0862f);
+                currentWeapon.transform.localEulerAngles = new Vector3(20.008f, 114.659f, 122.522f);
+                canPickUp = true;
+                if (!setWeapons.Contains("Weapon_Railgun"))
+                {
+                    inventory.Enqueue(currentWeapon);
+                    setWeapons.Add("Weapon_Railgun");
+                }
+            }
     }
 
     void Drop()
