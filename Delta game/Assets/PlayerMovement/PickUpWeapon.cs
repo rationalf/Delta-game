@@ -21,7 +21,14 @@ public class PickUpWeapon : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) PickUp();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, distance))
+            {
+                PickUp(hit.transform);
+            }
+        }
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             Drop();
@@ -51,12 +58,9 @@ public class PickUpWeapon : MonoBehaviour
         }
     }
 
-    void PickUp()
+    public void PickUp(Transform hit)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out hit, distance))
-        {
-            if (hit.transform.tag == "Weapon")
+            if (hit.tag == "Weapon")
             {
                 if (canPickUp) Drop();
 
@@ -71,9 +75,10 @@ public class PickUpWeapon : MonoBehaviour
                 {
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon");
+                    PlayerPrefs.SetInt("Weapon", 1);
                 }
             }
-            if (hit.transform.tag == "Weapon_Pistol")
+            if (hit.tag == "Weapon_Pistol")
             {
                 if (canPickUp) Drop();
 
@@ -88,8 +93,9 @@ public class PickUpWeapon : MonoBehaviour
                 {
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon_Pistol");
+                    PlayerPrefs.SetInt("Weapon_Pistol", 1);
+
                 }
-            }
         }
 
 

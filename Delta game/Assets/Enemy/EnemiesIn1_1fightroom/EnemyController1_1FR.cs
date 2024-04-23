@@ -22,7 +22,7 @@ public class EnemyController1_1FR : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_enemies[0] == null && !isFinished)
+        if (_enemies[0] == null && !isFinished && !PlayerPrefs.HasKey("isFinished1_1FR"))
         {
             for (int i = 0; i < 5; i++)
             {
@@ -30,6 +30,7 @@ public class EnemyController1_1FR : MonoBehaviour
                 _enemies[i].transform.Rotate(0, -90, 0);
             }
             isFinished = true;
+            PlayerPrefs.SetInt("isFinished1_1FR", 1);
         }
     }
 }

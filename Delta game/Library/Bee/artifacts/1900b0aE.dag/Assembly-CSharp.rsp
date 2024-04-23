@@ -459,7 +459,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexShakeB.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
-"Assets/UI/Menu/MenuScripts/StartScript.cs"
+"Assets/UI/Menu/MenuScripts/MenuScript.cs"
 "Assets/UI/Shop/Shop.cs"
 "Assets/UI/Shop/ShopOpenner.cs"
 -langversion:9.0

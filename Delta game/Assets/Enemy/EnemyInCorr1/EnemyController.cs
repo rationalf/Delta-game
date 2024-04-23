@@ -11,11 +11,11 @@ public class EnemyController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (_enemy == null && !isFinished)
+        if (_enemy == null && !isFinished && !PlayerPrefs.HasKey("isFinishedCorr1"))
         {
-            Debug.Log("Trigger");
             _enemy = Instantiate(enemyPrefab, new Vector3(0, 0.5f, -25), Quaternion.identity);
             isFinished = true;
+            PlayerPrefs.SetInt("isFinishedCorr1", 1);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -15,14 +16,41 @@ public class PlayerStatistics : MonoBehaviour
     
     private float credits;
     public TMP_Text creditsLabel;
-    public PickUpWeapon weapons;
+    private PickUpWeapon weapons;
+    [SerializeField] private GameObject allWeaponsInGame;
 
     void Start()
     {
-        health = maxHealth;
-        slider.value = CalculateHealth();
+        Transform[] allWeapons = allWeaponsInGame.GetComponentsInChildren<Transform>();
+        weapons = this.GameObject().GetComponentInChildren<PickUpWeapon>();
+        
+        //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        PlayerPrefs.DeleteAll();
+        if (PlayerPrefs.HasKey("health"))
+        {
+            health = PlayerPrefs.GetFloat("health");
+            maxHealth = PlayerPrefs.GetFloat("maxHealth");
+            credits = PlayerPrefs.GetFloat("credits");
+            for (int i = 0; i < allWeapons.Length; i++)
+            {
+                if (PlayerPrefs.HasKey(allWeapons[i].tag))
+                {
+                    weapons.PickUp(allWeapons[i]);
+                }
+            }
+        }
+        else
+        {
+            health = maxHealth;
+            credits = 0;
+            PlayerPrefs.SetFloat("health", maxHealth);
+            PlayerPrefs.SetFloat("maxHealth", maxHealth);
+            PlayerPrefs.SetFloat("credits", credits);
+        }
 
-        credits = 0;
+        
+        slider.value = CalculateHealth();
         creditsLabel.text = credits.ToString();
     }
     void Update()
@@ -31,18 +59,19 @@ public class PlayerStatistics : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("Death");
-            SceneManager.LoadScene(1);
+            Death();
         }
 
         if (health > maxHealth)
         {
             health = maxHealth;
+            PlayerPrefs.SetFloat("health", health);
         }
     }
 
     public void TakeDamage(int damage)
     {
-        if ((Input.GetMouseButton(1) && weapons.currentWeapon.CompareTag("Weapon")))
+        if (Input.GetMouseButton(1) && weapons.currentWeapon.CompareTag("Weapon"))
         {
             health -= (float) damage / 10;
         }
@@ -50,6 +79,7 @@ public class PlayerStatistics : MonoBehaviour
         {
             health -= damage;
         }
+        PlayerPrefs.SetFloat("health", health);
     }
 
     private float CalculateHealth()
@@ -60,6 +90,27 @@ public class PlayerStatistics : MonoBehaviour
     public void CreditsIncrement()
     {
         credits += 1;
+        PlayerPrefs.SetFloat("credits", credits);
         creditsLabel.text = credits.ToString();
+    }
+
+    [SerializeField] private GameObject deathPanel;
+    [SerializeField] private GameObject mainCanvas;
+    private MouseLookX x;
+    private MouseLookY y;
+    void Death()
+    {
+        
+        x = this.GetComponent<MouseLookX>();
+        y = this.GetComponentInChildren<MouseLookY>();
+        
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        
+        Time.timeScale = 0f;
+        x.enabled = false;
+        y.enabled = false;
+        mainCanvas.SetActive(false);
+        deathPanel.SetActive(true);
     }
 }
