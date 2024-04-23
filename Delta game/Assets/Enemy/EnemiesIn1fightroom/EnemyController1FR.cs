@@ -9,16 +9,13 @@ public class EnemyController1FR : MonoBehaviour
     private GameObject[] _enemies;
     private int _len = 5;
     public bool isFinished;
+    [SerializeField] private GameObject player;
 
     private void Start()
     {
         _enemies = new GameObject[_len];
     }
-
-    void Update()
-    {
-        
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +29,9 @@ public class EnemyController1FR : MonoBehaviour
             }
             isFinished = true;
             PlayerPrefs.SetInt("isFinished1FR", 1);
+            Stack<String> lastLevelProgress= PlayerStatistics.lastLevelProgress;
+            lastLevelProgress.Push("isFinished1FR");
+
         }
     }
 }

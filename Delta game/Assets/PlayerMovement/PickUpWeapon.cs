@@ -15,7 +15,8 @@ public class PickUpWeapon : MonoBehaviour
     public Animator anim;
     public Queue<GameObject> inventory = new Queue<GameObject>();
     public HashSet<String> setWeapons = new HashSet<string>();
-    private void Start()
+    [SerializeField] private GameObject player;
+    void Start()
     {
         anim = GetComponent<Animator>();
     }
@@ -60,29 +61,31 @@ public class PickUpWeapon : MonoBehaviour
 
     public void PickUp(Transform hit)
     {
+        var lastLevelProgress = PlayerStatistics.lastLevelProgress;
             if (hit.tag == "Weapon")
             {
                 if (canPickUp) Drop();
-
-                currentWeapon = hit.transform.gameObject;
+                currentWeapon = hit.gameObject;
                 currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
                 currentWeapon.GetComponent<Collider>().isTrigger = true;
                 currentWeapon.transform.parent = transform;
                 currentWeapon.transform.localPosition = Vector3.zero;
                 currentWeapon.transform.localEulerAngles = new Vector3(140f, 0, -30f);
                 canPickUp = true;
+                
                 if (!setWeapons.Contains("Weapon"))
                 {
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon");
                     PlayerPrefs.SetInt("Weapon", 1);
+                    lastLevelProgress.Push("Weapon");
                 }
             }
             if (hit.tag == "Weapon_Pistol")
             {
                 if (canPickUp) Drop();
 
-                currentWeapon = hit.transform.gameObject;
+                currentWeapon = hit.gameObject;
                 currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
                 currentWeapon.GetComponent<Collider>().isTrigger = true;
                 currentWeapon.transform.parent = transform;
@@ -94,14 +97,14 @@ public class PickUpWeapon : MonoBehaviour
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon_Pistol");
                     PlayerPrefs.SetInt("Weapon_Pistol", 1);
-
+                    lastLevelProgress.Push("Weapon_Pistol");
                 }
             }
             if (hit.tag == "Weapon_Railgun")
             {
                 if (canPickUp) Drop();
 
-                currentWeapon = hit.transform.gameObject;
+                currentWeapon = hit.gameObject;
                 currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
                 currentWeapon.GetComponent<Collider>().isTrigger = true;
                 currentWeapon.transform.parent = transform;
@@ -112,6 +115,8 @@ public class PickUpWeapon : MonoBehaviour
                 {
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon_Railgun");
+                    PlayerPrefs.SetInt("Weapon_Railgun", 1);
+                    lastLevelProgress.Push("Weapon_Railgun");
                 }
             }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class EnemyController1_1 : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     private GameObject _enemy;
     private bool isFinished;
+    [SerializeField] private GameObject player;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +18,8 @@ public class EnemyController1_1 : MonoBehaviour
             _enemy = Instantiate(enemyPrefab, new Vector3(16.5f, 0.5f, -41), Quaternion.identity);
             isFinished = true;
             PlayerPrefs.SetInt("isFinishedCorr1.1", 1);
+            Stack<String> lastLevelProgress = PlayerStatistics.lastLevelProgress;
+            lastLevelProgress.Push("isFinishedCorr1.1");
         }
     }
 }
