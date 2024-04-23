@@ -25,14 +25,7 @@ public class Pistol : MonoBehaviour
         Ray ray = mainCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(75);
-        }
+        targetPoint = ray.GetPoint(15);
 
         Vector3 dirWithoutSpread = targetPoint - spawner.position;
 
