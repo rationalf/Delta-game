@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,8 +19,6 @@ public class EnemyController1_1 : MonoBehaviour
             _enemy = Instantiate(enemyPrefab, new Vector3(16.5f, 0.5f, -41), Quaternion.identity);
             isFinished = true;
             PlayerPrefs.SetInt("isFinishedCorr1.1", 1);
-            Stack<String> lastLevelProgress = PlayerStatistics.lastLevelProgress;
-            lastLevelProgress.Push("isFinishedCorr1.1");
         }
     }
 }

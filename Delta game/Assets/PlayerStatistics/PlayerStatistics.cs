@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,22 +15,21 @@ public class PlayerStatistics : MonoBehaviour
     public float maxHealth;
     public Slider slider;
     
-    private float credits;
+    public float credits;
+    public float maxCredits;
     public TMP_Text creditsLabel;
     private PickUpWeapon weapons;
     [SerializeField] private GameObject allWeaponsInGame;
-    public static Stack<string> lastLevelProgress;
-    private bool isDead;
+    
 
     void Start()
     {
         Transform[] allWeapons = allWeaponsInGame.GetComponentsInChildren<Transform>();
         weapons = this.GameObject().GetComponentInChildren<PickUpWeapon>();
-        lastLevelProgress = new Stack<string>();
         
         //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         
         if (PlayerPrefs.HasKey("health"))
         {
@@ -42,6 +42,7 @@ public class PlayerStatistics : MonoBehaviour
                 if (PlayerPrefs.HasKey(allWeapons[i].tag))
                 {
                     weapons.PickUp(allWeapons[i]);
+                    
                 }
             }
         }
@@ -50,11 +51,11 @@ public class PlayerStatistics : MonoBehaviour
             health = maxHealth;
             credits = 0;
             PlayerPrefs.SetFloat("health", maxHealth);
-            lastLevelProgress.Push("health");
+
             PlayerPrefs.SetFloat("maxHealth", maxHealth);
-            lastLevelProgress.Push("maxHealth");
+
             PlayerPrefs.SetFloat("credits", credits);
-            lastLevelProgress.Push("credits");
+
         }
         
         slider.value = CalculateHealth();
@@ -64,20 +65,12 @@ public class PlayerStatistics : MonoBehaviour
     void Update()
     {
         slider.value = CalculateHealth();
-        if (health <= 0)
-        {
-            if (!isDead)
-            {
-                Death();
-            }
-            isDead = true;
-        }
-
+        
         if (health > maxHealth)
         {
             health = maxHealth;
             PlayerPrefs.SetFloat("health", health);
-            lastLevelProgress.Push("health");
+
         }
     }
 
@@ -92,7 +85,7 @@ public class PlayerStatistics : MonoBehaviour
             health -= damage;
         }
         PlayerPrefs.SetFloat("health", health);
-        lastLevelProgress.Push("health");
+
     }
 
     private float CalculateHealth()
@@ -103,58 +96,8 @@ public class PlayerStatistics : MonoBehaviour
     public void CreditsIncrement()
     {
         credits += 1;
+        maxCredits = credits;
         PlayerPrefs.SetFloat("credits", credits);
-        lastLevelProgress.Push("credits");
         creditsLabel.text = credits.ToString();
-    }
-
-    [SerializeField] private GameObject deathPanel;
-    [SerializeField] private GameObject mainCanvas;
-    private MouseLookX x;
-    private MouseLookY y;
-    void Death()
-    {
-        x = this.GetComponent<MouseLookX>();
-        y = this.GetComponentInChildren<MouseLookY>();
-        
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        
-        Time.timeScale = 0f;
-        x.enabled = false;
-        y.enabled = false;
-        mainCanvas.SetActive(false);
-        deathPanel.SetActive(true);
-        ExitDead();
-    }
-
-    public void Restart()
-    {
-        for (int i = 0; i < lastLevelProgress.Count; i++)
-        {
-            PlayerPrefs.DeleteKey(lastLevelProgress.Peek());
-            lastLevelProgress.Pop();
-        }
-        //Загружаем сцену по индексу сохраненному в памяти
-        SceneManager.LoadScene(1);
-    }
-
-    public void ExitDead()
-    {
-        for (int i = 0; i < lastLevelProgress.Count; i++)
-        {
-            PlayerPrefs.DeleteKey(lastLevelProgress.Peek());
-            lastLevelProgress.Pop();
-        }
-        //Загружаем сцену меню
-    }
-
-    public void ExitAlive()
-    {
-        //загружаем сцену меню
-    }
-    public void Pause()
-    {
-        
     }
 }

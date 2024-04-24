@@ -61,7 +61,6 @@ public class PickUpWeapon : MonoBehaviour
 
     public void PickUp(Transform hit)
     {
-        var lastLevelProgress = PlayerStatistics.lastLevelProgress;
             if (hit.tag == "Weapon")
             {
                 if (canPickUp) Drop();
@@ -78,7 +77,6 @@ public class PickUpWeapon : MonoBehaviour
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon");
                     PlayerPrefs.SetInt("Weapon", 1);
-                    lastLevelProgress.Push("Weapon");
                 }
             }
             if (hit.tag == "Weapon_Pistol")
@@ -97,7 +95,6 @@ public class PickUpWeapon : MonoBehaviour
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon_Pistol");
                     PlayerPrefs.SetInt("Weapon_Pistol", 1);
-                    lastLevelProgress.Push("Weapon_Pistol");
                 }
             }
             if (hit.tag == "Weapon_Railgun")
@@ -116,7 +113,6 @@ public class PickUpWeapon : MonoBehaviour
                     inventory.Enqueue(currentWeapon);
                     setWeapons.Add("Weapon_Railgun");
                     PlayerPrefs.SetInt("Weapon_Railgun", 1);
-                    lastLevelProgress.Push("Weapon_Railgun");
                 }
             }
     }

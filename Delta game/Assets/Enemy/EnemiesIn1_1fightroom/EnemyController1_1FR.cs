@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController1_1FR : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyController1_1FR : MonoBehaviour
     private GameObject[] _enemies;
     private int _len = 5;
     public bool isFinished;
+    public bool passed;
     [SerializeField] private GameObject player;
 
     private void Start()
@@ -28,8 +30,6 @@ public class EnemyController1_1FR : MonoBehaviour
             }
             isFinished = true;
             PlayerPrefs.SetInt("isFinished1_1FR", 1);
-            Stack<String> lastLevelProgress= PlayerStatistics.lastLevelProgress;
-            lastLevelProgress.Push("isFinished1_1FR");
         }
     }
 }

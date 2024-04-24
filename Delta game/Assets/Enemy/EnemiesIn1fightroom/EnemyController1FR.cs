@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController1FR : MonoBehaviour
@@ -29,9 +30,6 @@ public class EnemyController1FR : MonoBehaviour
             }
             isFinished = true;
             PlayerPrefs.SetInt("isFinished1FR", 1);
-            Stack<String> lastLevelProgress= PlayerStatistics.lastLevelProgress;
-            lastLevelProgress.Push("isFinished1FR");
-
         }
     }
 }

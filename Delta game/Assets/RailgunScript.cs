@@ -8,7 +8,7 @@ public class RaycastGun : MonoBehaviour
     public Camera playerCamera;
     public Transform laserOrigin;
     public float gunRange = 50f;
-    public float fireRate = 0.2f;
+    public float fireRate = 0.2f;//shot delay
     public float laserDuration = 0.05f;
     public GameObject hand;
     LineRenderer laserLine;

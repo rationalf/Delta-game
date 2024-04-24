@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +14,8 @@ public class Shop : MonoBehaviour
     [SerializeField] private GameObject crosshair;
     private MouseLookX x;
     private MouseLookY y;
+    public static bool shopIsOpened;
+    
     
     void Start()
     {
@@ -24,6 +27,7 @@ public class Shop : MonoBehaviour
         CloseShop();
     }
     
+
     public void OpenShop()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -35,6 +39,7 @@ public class Shop : MonoBehaviour
         crosshair.SetActive(false);
         
         panel.SetActive(true);
+        shopIsOpened = true;
     }
     public void CloseShop()
     {
@@ -47,51 +52,76 @@ public class Shop : MonoBehaviour
         crosshair.SetActive(true);
 
         panel.SetActive(false);
+        shopIsOpened = false;
     }
 
     [SerializeField] private GameObject parameterShop;
+    
     [SerializeField] private GameObject katanaShop;
+    [SerializeField] private GameObject pistolShop;
+    [SerializeField] private GameObject railgunShop;
+
+    [SerializeField] private GameObject buypistol;
+    [SerializeField] private GameObject buykatana;
+    [SerializeField] private GameObject buyrailgun;
     public void OpenKatanaShop()
     {
         parameterShop.SetActive(false);
         pistolShop.SetActive(false);
         railgunShop.SetActive(false);
-        katanaShop.SetActive(true);
+        CloseButtons();
+        if (PlayerPrefs.HasKey("Weapon")) katanaShop.SetActive(true);
+        else buykatana.SetActive(true);
     }
 
     public void CloseKatanaShop()
     {
         parameterShop.SetActive(true);
         katanaShop.SetActive(false);
+        buykatana.SetActive(false);
     }
     
-    [SerializeField] private GameObject pistolShop;
+
     public void OpenPistolShop()
     {
         parameterShop.SetActive(false);
         katanaShop.SetActive(false);
         railgunShop.SetActive(false);
-        pistolShop.SetActive(true);
+        CloseButtons();
+        if (PlayerPrefs.HasKey("Weapon_Pistol")) pistolShop.SetActive(true);
+        else buypistol.SetActive(true);
     }
     
     public void ClosePistolShop()
     {
         parameterShop.SetActive(true);
         pistolShop.SetActive(false);
+        buypistol.SetActive(false);
     }
     
-    [SerializeField] private GameObject railgunShop;
+    
+
     public void OpenRailgunShop()
     {
         parameterShop.SetActive(false);
         katanaShop.SetActive(false);
         pistolShop.SetActive(false);
-        railgunShop.SetActive(true);
+        CloseButtons();
+        if (PlayerPrefs.HasKey("Weapon_Railgun")) railgunShop.SetActive(true);
+        else buyrailgun.SetActive(true);
     }
     
     public void CloseRailgunShop()
     {
         parameterShop.SetActive(true);
         railgunShop.SetActive(false);
+        buyrailgun.SetActive(false);
+    }
+
+    public void CloseButtons()
+    {
+        buyrailgun.SetActive(false);
+        buypistol.SetActive(false);
+        buykatana.SetActive(false);
     }
 }
