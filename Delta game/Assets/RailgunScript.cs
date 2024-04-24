@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,27 @@ public class RaycastGun : MonoBehaviour
     public Camera playerCamera;
     public Transform laserOrigin;
     public float gunRange = 50f;
-    public float fireRate = 0.2f;//shot delay
+    public float fireRate = 3f;//shot delay
     public float laserDuration = 0.05f;
     public GameObject hand;
     LineRenderer laserLine;
     float fireTimer;
-    private int damage = 50;
- 
+    private float damage;
+
+    private void Start()
+    {
+        if (!PlayerPrefs.HasKey("railgunDamage"))
+        {
+            PlayerPrefs.SetFloat("railgunDamage", 30);
+            damage = PlayerPrefs.GetFloat("railgunDamage");
+        }
+        if (!PlayerPrefs.HasKey("railgunShotDelay"))
+        {
+            PlayerPrefs.SetFloat("railgunShotDelay", 3f);
+            fireRate = PlayerPrefs.GetFloat("railgunShotDelay");
+        }
+    }
+
     void Awake()
     {
         laserLine = GetComponent<LineRenderer>();
@@ -22,7 +37,11 @@ public class RaycastGun : MonoBehaviour
  
     void Update()
     {
+        damage = PlayerPrefs.GetFloat("railgunDamage");
+        fireRate = PlayerPrefs.GetFloat("railgunShotDelay");
+
         fireTimer += Time.deltaTime;
+        if (hand.GetComponent<PickUpWeapon>().currentWeapon==null) return;
         if (Input.GetMouseButtonDown(0) && hand.GetComponent<PickUpWeapon>().currentWeapon.CompareTag("Weapon_Railgun") && fireTimer > fireRate)
         {
             fireTimer = 0;

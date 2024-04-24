@@ -464,6 +464,9 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
 "Assets/UI/Death/Death.cs"
 "Assets/UI/Pause/Pause.cs"
+"Assets/UI/Shop/BuyParameters.cs"
+"Assets/UI/Shop/BuyUpgradeWeapon.cs"
+"Assets/UI/Shop/BuyWeapons.cs"
 "Assets/UI/Shop/Shop.cs"
 "Assets/UI/Shop/ShopOpenner.cs"
 -langversion:9.0

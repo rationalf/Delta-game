@@ -54,10 +54,12 @@ public class Death : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+        PlayerPrefs.DeleteAll();
     }
     
     public void ExitDead()
     {
         SceneManager.LoadScene(0);
+        PlayerPrefs.DeleteAll();
     }
 }

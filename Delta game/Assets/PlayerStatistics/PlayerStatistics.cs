@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class PlayerStatistics : MonoBehaviour
 {
     public float health;
-    public float maxHealth;
+    private float maxHealth;
     public Slider slider;
     
     public float credits;
@@ -20,7 +20,8 @@ public class PlayerStatistics : MonoBehaviour
     public TMP_Text creditsLabel;
     private PickUpWeapon weapons;
     [SerializeField] private GameObject allWeaponsInGame;
-    
+
+    private float _damageResistance;
 
     void Start()
     {
@@ -29,13 +30,14 @@ public class PlayerStatistics : MonoBehaviour
         
         //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         
         if (PlayerPrefs.HasKey("health"))
         {
             health = PlayerPrefs.GetFloat("health");
             maxHealth = PlayerPrefs.GetFloat("maxHealth");
             credits = PlayerPrefs.GetFloat("credits");
+            _damageResistance = PlayerPrefs.GetFloat("damageResistance");
             
             for (int i = 0; i < allWeapons.Length; i++)
             {
@@ -48,14 +50,14 @@ public class PlayerStatistics : MonoBehaviour
         }
         else
         {
+            maxHealth = 100;
             health = maxHealth;
             credits = 0;
             PlayerPrefs.SetFloat("health", maxHealth);
-
             PlayerPrefs.SetFloat("maxHealth", maxHealth);
-
             PlayerPrefs.SetFloat("credits", credits);
-
+            PlayerPrefs.SetFloat("_damageResistance", 50);
+            PlayerPrefs.SetFloat("income", 1);
         }
         
         slider.value = CalculateHealth();
@@ -65,20 +67,19 @@ public class PlayerStatistics : MonoBehaviour
     void Update()
     {
         slider.value = CalculateHealth();
+        if (health > maxHealth) health = maxHealth;
+        health = PlayerPrefs.GetFloat("health", health);
         
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-            PlayerPrefs.SetFloat("health", health);
-
-        }
+        credits = PlayerPrefs.GetFloat("credits");
+        creditsLabel.text = credits.ToString();
     }
-
-    public void TakeDamage(int damage)
+    
+    public void TakeDamage(float damage)
     {
         if (Input.GetMouseButton(1) && weapons.currentWeapon.CompareTag("Weapon"))
         {
-            health -= (float) damage / 10;
+            _damageResistance = PlayerPrefs.GetFloat("damageResistance");
+            health = health - damage + _damageResistance;
         }
         else
         {
@@ -95,8 +96,8 @@ public class PlayerStatistics : MonoBehaviour
 
     public void CreditsIncrement()
     {
-        credits += 1;
-        maxCredits = credits;
+        credits += PlayerPrefs.GetFloat("income");
+        maxCredits = Math.Max(credits, maxCredits);
         PlayerPrefs.SetFloat("credits", credits);
         creditsLabel.text = credits.ToString();
     }

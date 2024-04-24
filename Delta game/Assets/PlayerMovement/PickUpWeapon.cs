@@ -61,7 +61,7 @@ public class PickUpWeapon : MonoBehaviour
 
     public void PickUp(Transform hit)
     {
-            if (hit.tag == "Weapon")
+            if (hit.tag == "Weapon" && !setWeapons.Contains("Weapon"))
             {
                 if (canPickUp) Drop();
                 currentWeapon = hit.gameObject;
@@ -72,14 +72,12 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.localEulerAngles = new Vector3(140f, 0, -30f);
                 canPickUp = true;
                 
-                if (!setWeapons.Contains("Weapon"))
-                {
-                    inventory.Enqueue(currentWeapon);
-                    setWeapons.Add("Weapon");
-                    PlayerPrefs.SetInt("Weapon", 1);
-                }
+                inventory.Enqueue(currentWeapon);
+                setWeapons.Add("Weapon");
+                PlayerPrefs.SetInt("Weapon", 1);
+                
             }
-            if (hit.tag == "Weapon_Pistol")
+            if (hit.tag == "Weapon_Pistol" && !setWeapons.Contains("Weapon_Pistol"))
             {
                 if (canPickUp) Drop();
 
@@ -90,14 +88,13 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.localPosition = new Vector3(0.0262f, -0.0369f, 0.0316f);
                 currentWeapon.transform.localEulerAngles = new Vector3(16.94f, 116.384f, 127.48f);
                 canPickUp = true;
-                if (!setWeapons.Contains("Weapon_Pistol"))
-                {
-                    inventory.Enqueue(currentWeapon);
-                    setWeapons.Add("Weapon_Pistol");
-                    PlayerPrefs.SetInt("Weapon_Pistol", 1);
-                }
+                
+                inventory.Enqueue(currentWeapon);
+                setWeapons.Add("Weapon_Pistol");
+                PlayerPrefs.SetInt("Weapon_Pistol", 1);
+                
             }
-            if (hit.tag == "Weapon_Railgun")
+            if (hit.tag == "Weapon_Railgun" && !setWeapons.Contains("Weapon_Railgun"))
             {
                 if (canPickUp) Drop();
 
@@ -108,12 +105,10 @@ public class PickUpWeapon : MonoBehaviour
                 currentWeapon.transform.localPosition = new Vector3(0.0982f, -0.104f, 0.0862f);
                 currentWeapon.transform.localEulerAngles = new Vector3(20.008f, 114.659f, 122.522f);
                 canPickUp = true;
-                if (!setWeapons.Contains("Weapon_Railgun"))
-                {
-                    inventory.Enqueue(currentWeapon);
-                    setWeapons.Add("Weapon_Railgun");
-                    PlayerPrefs.SetInt("Weapon_Railgun", 1);
-                }
+                
+                inventory.Enqueue(currentWeapon);
+                setWeapons.Add("Weapon_Railgun");
+                PlayerPrefs.SetInt("Weapon_Railgun", 1);
             }
     }
 

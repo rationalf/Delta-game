@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
-    private int _health = 100;
+    private float _health = 100;
     public Animator anim;
     public Slider healthBar;
     
@@ -17,7 +17,7 @@ public class EnemyScript : MonoBehaviour
         healthBar.value = _health;
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float damageAmount)
     {
         _health -= damageAmount;
 

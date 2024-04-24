@@ -10,10 +10,20 @@ public class Pistol : MonoBehaviour
     public GameObject hand;
     public float shootForce;
     public float spread;
-    
+
+    void Start()
+    {
+        if (!PlayerPrefs.HasKey("pistolBulletSpeed"))
+        {
+            PlayerPrefs.SetFloat("pistolBulletSpeed", 12);
+            shootForce = PlayerPrefs.GetFloat("pistolBulletSpeed");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        shootForce = PlayerPrefs.GetFloat("pistolBulletSpeed");
+        if (hand.GetComponent<PickUpWeapon>().currentWeapon==null) return;
         if (Input.GetMouseButtonDown(0) && hand.GetComponent<PickUpWeapon>().currentWeapon.CompareTag("Weapon_Pistol"))
         {
             Shoot();

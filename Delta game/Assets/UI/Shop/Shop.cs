@@ -51,6 +51,9 @@ public class Shop : MonoBehaviour
         y.enabled = true;
         crosshair.SetActive(true);
 
+        CloseKatanaShop();
+        ClosePistolShop();
+        CloseRailgunShop();
         panel.SetActive(false);
         shopIsOpened = false;
     }
@@ -73,7 +76,6 @@ public class Shop : MonoBehaviour
         if (PlayerPrefs.HasKey("Weapon")) katanaShop.SetActive(true);
         else buykatana.SetActive(true);
     }
-
     public void CloseKatanaShop()
     {
         parameterShop.SetActive(true);

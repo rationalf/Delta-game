@@ -6,6 +6,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float bulletLife = 3f;
+    public float damageAmount;
+
+    private void Start()
+    {
+        if (!PlayerPrefs.HasKey("pistolDamage"))
+        {
+            PlayerPrefs.SetFloat("pistolDamage", 20);
+            damageAmount = PlayerPrefs.GetFloat("pistolDamage");
+        }
+    }
 
     private void Awake()
     {
@@ -16,10 +26,11 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public int damageAmount = 20;
+    
 
     private void OnTriggerEnter(Collider other)
     {
+        damageAmount = PlayerPrefs.GetFloat("pistolDamage");
         if (other.tag == "Enemy")
         {
             other.GetComponent<EnemyScript>().TakeDamage(damageAmount);
