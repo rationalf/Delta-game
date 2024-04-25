@@ -12,9 +12,11 @@ public class BOSS : MonoBehaviour
     private float hp;
     private int maxHealth = 3000;
     private int damage = 75;
+    [SerializeField] private Slider slider;
     void Start()
     {   
         hp = maxHealth;
+        slider.value = CalcilateHealth();
         anim.SetTrigger("go");
         // Set initial direction (random)
         direction = Vector3.forward;
@@ -23,6 +25,7 @@ public class BOSS : MonoBehaviour
 
     void Update()
     {   
+        slider.value = CalcilateHealth();
         anim.SetTrigger("go");
         // Move the ball
         if (transform.position.x <= -25f || transform.position.x >= 25f || transform.position.z <= -25f || transform.position.z >= 25f)
@@ -59,6 +62,8 @@ public class BOSS : MonoBehaviour
 
         if (hp <= 0)
         {
+            slider.enabled = false;
+            
             StartCoroutine(Die());
         }
         print(hp);
@@ -83,5 +88,10 @@ public class BOSS : MonoBehaviour
         {
             other.GetComponent<PlayerStatistics>().TakeDamage(damage);
         }
+    }
+
+    float CalcilateHealth()
+    {
+        return hp / maxHealth;
     }
 }

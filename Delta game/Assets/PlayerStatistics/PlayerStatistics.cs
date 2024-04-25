@@ -24,7 +24,8 @@ public class PlayerStatistics : MonoBehaviour
     private float _damageResistance;
 
     void Start()
-    {PlayerPrefs.DeleteAll();
+    {
+        //PlayerPrefs.DeleteAll();
         //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
              

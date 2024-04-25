@@ -9,12 +9,15 @@ public class enemyAI : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
     public float LookRadius;
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     private float damage = 0.1f;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        target = player.transform;
+        if (player!=null)
+            target = player.transform;
+        else
+            StartCoroutine(startDelay());
     }
 
     private void Update()
@@ -45,5 +48,10 @@ public class enemyAI : MonoBehaviour
         {
             other.GetComponent<PlayerStatistics>().TakeDamage(damage);
         }
+    }
+
+    private IEnumerator startDelay()
+    {
+        yield return new WaitForSeconds(1);
     }
 }

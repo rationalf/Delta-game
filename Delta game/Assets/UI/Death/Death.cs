@@ -30,16 +30,17 @@ public class Death : MonoBehaviour
         {
             if (!isDead)
             {
+                isDead = true;
                 Die();
             }
-            isDead = true;
+            
         }
     }
     
     void Die()
     {
-        x = this.GetComponent<MouseLookX>();
-        y = this.GetComponentInChildren<MouseLookY>();
+        x = player.GetComponent<MouseLookX>();
+        y = player.GetComponentInChildren<MouseLookY>();
         
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -49,19 +50,17 @@ public class Death : MonoBehaviour
         y.enabled = false;
         mainCanvas.SetActive(false);
         deathPanel.SetActive(true);
-        ExitDead();
     }
     
     public void Restart()
     {
-        SceneManager.LoadScene(0);
         PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
     
     public void ExitDead()
     { 
         PlayerPrefs.DeleteAll();
         SceneManager.LoadScene(0);
-        
     }
 }

@@ -10,7 +10,12 @@ public class MenuScript : MonoBehaviour
     [SerializeField] private GameObject oldMenu;
     private void Start()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
+        
+    }
+
+    private void Update()
+    {
         if (PlayerPrefs.GetInt("currentScene") != 0)
         {
             newMenu.SetActive(false);
@@ -22,6 +27,7 @@ public class MenuScript : MonoBehaviour
             oldMenu.SetActive(false);
         }
     }
+
 
     public void PlayGame()
     {

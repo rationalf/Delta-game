@@ -10,6 +10,7 @@ TagManager:
   - FightRoom
   - Weapon_Railgun
   - BOSS
+  - Enemy2
   layers:
   - Default
   - TransparentFX

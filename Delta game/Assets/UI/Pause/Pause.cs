@@ -71,7 +71,7 @@ public class Pause : MonoBehaviour
     
     public void ExitAlive()
     {
-        SceneManager.LoadScene(0);
         PlayerPrefs.Save();
+        SceneManager.LoadScene(0);
     }
 }
