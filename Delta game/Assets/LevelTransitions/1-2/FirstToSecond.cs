@@ -10,10 +10,8 @@ public class FirstToSecond : MonoBehaviour
     {
         if (other.CompareTag("Player") && other.GetComponent<PlayerStatistics>().maxCredits >= 5)
         {
-            Debug.Log(PlayerPrefs.GetInt("currentScene"));
             PlayerPrefs.SetInt("currentScene", PlayerPrefs.GetInt("currentScene") + 1);
-            Debug.Log(PlayerPrefs.GetInt("currentScene"));
-            SceneManager.LoadScene(PlayerPrefs.GetInt("currentScene"));
+            SceneManager.LoadScene(2);
         }
     }
 }

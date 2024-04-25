@@ -8,18 +8,18 @@ public class Pistol : MonoBehaviour
     public Camera mainCam;
     public Transform spawner;
     public GameObject hand;
-    public float shootForce;
+    private float shootForce;
     public float spread;
 
     void Start()
     {
         if (!PlayerPrefs.HasKey("pistolBulletSpeed"))
         {
-            PlayerPrefs.SetFloat("pistolBulletSpeed", 12);
+            PlayerPrefs.SetFloat("pistolBulletSpeed", 12f);
             shootForce = PlayerPrefs.GetFloat("pistolBulletSpeed");
         }
     }
-    // Update is called once per frame
+    
     void Update()
     {
         shootForce = PlayerPrefs.GetFloat("pistolBulletSpeed");
@@ -42,7 +42,7 @@ public class Pistol : MonoBehaviour
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
         Vector3 dirWithSpread = dirWithoutSpread + new Vector3(x, y, 0);
-
+        
         GameObject currentBullet = Instantiate(bullet, spawner.position, Quaternion.identity);
         currentBullet.transform.forward = dirWithSpread.normalized;
         currentBullet.GetComponent<Rigidbody>().AddForce(dirWithSpread.normalized * shootForce, ForceMode.Impulse);

@@ -24,13 +24,13 @@ public class PlayerStatistics : MonoBehaviour
     private float _damageResistance;
 
     void Start()
-    {
+    {PlayerPrefs.DeleteAll();
+        //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             
         Transform[] allWeapons = allWeaponsInGame.GetComponentsInChildren<Transform>();
         weapons = this.GameObject().GetComponentInChildren<PickUpWeapon>();
         
-        //не забыть убрать !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //PlayerPrefs.DeleteAll();
         
         if (PlayerPrefs.HasKey("health"))
         {

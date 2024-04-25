@@ -38,6 +38,7 @@ public class Shop : MonoBehaviour
         y.enabled = false;
         crosshair.SetActive(false);
         
+
         panel.SetActive(true);
         shopIsOpened = true;
     }
