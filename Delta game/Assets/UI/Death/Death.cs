@@ -19,12 +19,13 @@ public class Death : MonoBehaviour
     {
         x = player.GetComponent<MouseLookX>();
         y = player.GetComponentInChildren<MouseLookY>();
-        health = player.GetComponent<PlayerStatistics>().health;
+        
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        health = player.GetComponent<PlayerStatistics>().health;
         if (health <= 0)
         {
             if (!isDead)
@@ -58,8 +59,9 @@ public class Death : MonoBehaviour
     }
     
     public void ExitDead()
-    {
-        SceneManager.LoadScene(0);
+    { 
         PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
+        
     }
 }

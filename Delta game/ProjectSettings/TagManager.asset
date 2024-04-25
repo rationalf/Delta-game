@@ -9,6 +9,7 @@ TagManager:
   - Weapon_Pistol
   - FightRoom
   - Weapon_Railgun
+  - BOSS
   layers:
   - Default
   - TransparentFX

@@ -35,5 +35,9 @@ public class BulletPistol: MonoBehaviour
         {
             other.GetComponent<EnemyScript>().TakeDamage(damageAmount);
         }
+        else if (other.tag == "BOSS")
+        {
+            other.GetComponent<BOSS>().TakeDamage(damageAmount);
+        }
     }
 }

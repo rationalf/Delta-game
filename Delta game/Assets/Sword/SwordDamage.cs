@@ -24,5 +24,9 @@ public class SwordDamage : MonoBehaviour
         {
             other.GetComponent<EnemyScript>().TakeDamage(damageAmount);
         }
+        if (other.tag == "BOSS")
+        {
+            other.GetComponent<BOSS>().TakeDamage(damageAmount);
+        }
     }
 }
