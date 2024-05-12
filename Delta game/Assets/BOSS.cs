@@ -9,9 +9,10 @@ public class BOSS : MonoBehaviour
     public float speed = 5f;
     private Vector3 direction;
     public Animator anim;
-    private float hp;
+    public float hp;
     private int maxHealth = 3000;
     private int damage = 75;
+    public GameObject sphereAttack;
     [SerializeField] private Slider slider;
     void Start()
     {   
@@ -35,6 +36,7 @@ public class BOSS : MonoBehaviour
             direction = this.transform.forward;
             transform.position -= direction * 0.5f;
             Invoke("ResumeMovement", 1f);
+            Instantiate(sphereAttack, this.gameObject.transform.position, Quaternion.identity);
         }
         else
         {

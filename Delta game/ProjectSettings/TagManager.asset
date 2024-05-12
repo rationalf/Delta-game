@@ -11,6 +11,7 @@ TagManager:
   - Weapon_Railgun
   - BOSS
   - Enemy2
+  - jump
   layers:
   - Default
   - TransparentFX

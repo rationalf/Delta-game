@@ -53,7 +53,7 @@ public class RaycastGun : MonoBehaviour
                 laserLine.SetPosition(1, hit.point);
                 hit.transform.GetComponent<EnemyScript>().TakeDamage(damage);
             }
-            else if(Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, gunRange) && hit.transform.tag == "BOSS")
+            else if(Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, gunRange) && hit.transform.tag == "BOSS" && hit.transform.GetComponent<BOSS>().hp > 1500)
             {
                 laserLine.SetPosition(1, hit.point);
                 hit.transform.GetComponent<BOSS>().TakeDamage(damage);
